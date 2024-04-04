@@ -1,0 +1,49 @@
+{% extends 'main/base.html' %}
+{% block title %} Nouveau {% endblock %}
+
+{% block content %}
+<div class="container mt-3">
+    <form action="/pharmacy/home/add" method="post"> <!-- Adjust the action URL according to your requirements -->
+        {% csrf_token %}
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="text-center mb-4">Nouveau Medicament</h1>
+                {% if ajout_success %}
+                <div class="alert alert-success" role="alert">
+                    Ajout Réussie
+                </div>
+                {% elif exist %}
+                <div class="alert alert-warning" role="alert">
+                    Medicament Exist
+                </div>
+                {% elif fails %}
+                <div class="alert alert-danger" role="alert">
+                    Echecs !
+                </div>
+                {% endif %}
+                <div class="input-group mb-2">
+                    <input type="text" required class="form-control" name="nom" placeholder="Medicament">
+                </div>
+                <div class="input-group mb-2">
+                    <input type="text" required class="form-control" name="code" placeholder="Code Medicament">
+                </div>
+                <div class="input-group mb-2">
+                    <input type="text" required class="form-control" name="prix" placeholder="Prix Medicament">
+                </div>
+                <div class="input-group mb-2">
+                    <input type="text" required class="form-control" name="description" placeholder="Description Medicament">
+                </div>
+                <div class="input-group mb-2">
+                    <input type="date" required class="form-control" name="dateExpiration" placeholder="Date Expiration">
+                </div>
+                <div class="input-group mb-2">
+                    <input type="text" required class="form-control" name="stockDisponible" placeholder="Stock Medicament">
+                </div>
+                <div class="input-group mb-3">
+                    <button type="submit" class="btn btn-success">Ajouter</button> <!-- Moved the button inside the form -->
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock %}

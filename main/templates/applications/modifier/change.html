@@ -1,0 +1,230 @@
+{% extends 'main/base.html' %}
+{% block title %} Changer    {% endblock %}
+
+{% block content %}
+{% if new %}
+<div class="container mt-5">
+    <form action="/pharmacy/home/change" method="post"> <!-- Adjust the action URL according to your requirements -->
+        {% csrf_token %}
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <h1 class="text-center mb-4">Stock Medicament</h1>
+                <div class="input-group mb-2">
+                    <input type="text" required class="form-control" name="medicament" placeholder="Recherche Medicament...">
+                </div>
+                <button class="btn btn-success">Submit</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% elif status %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">Details Medicament</h1>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">Nom</th>
+                        <td>{{ nom|upper }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Code</th>
+                        <td>{{ code|upper }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Prix</th>
+                        <td>{{ prix }} FCFA</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>{{ description }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Date Expiration</th>
+                        <td>{{ dateExpiration }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Stock Disponible</th>
+                        <td>{{ stockDisponible }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-between">
+                <form action="/pharmacy/home/change" method="get">
+                    <button class="btn btn-dark">Annuler</button>
+                </form>
+                <form action="/pharmacy/home/change" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="medicament" value="{{ nom }}">
+                    <input type="hidden" name="first" value="1">
+                    <button class="btn btn-warning">Modifier Stock</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% elif start %}
+<div class="container mt-5">
+    <form action="/pharmacy/home/change" method="post">
+        {% csrf_token %}
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-center mb-4">Details Medicament</h1>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Nom</th>
+                            <td>{{ nom|upper }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Code</th>
+                            <td>{{ code|upper }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Prix</th>
+                            <td>{{ prix }} FCFA</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Description</th>
+                            <td>{{ description }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Date Expiration</th>
+                            <td>{{ dateExpiration }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Stock Disponible</th>
+                            <td><input type="text" class="form-text" name="value" placeholder="Nouveau Stock"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between">
+                    <form action="/pharmacy/home/change" method="get">
+                        <button class="btn btn-dark">Annuler</button>
+                    </form>
+                    <input type="hidden" name="medicament" value="{{ nom }}">
+                    <input type="hidden" name="first" value="2">
+                    <button type="submit" class="btn btn-warning">Modifier Stock</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% elif value_error %}
+<div class="container mt-5">
+    <form action="/pharmacy/home/change" method="post">
+        {% csrf_token %}
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="text-center mb-4">Details Medicament</h1>
+                <div class="alert alert-warning" role="alert">Veuillez saisir une valeur positive</div>
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th scope="row">Nom</th>
+                            <td>{{ nom|upper }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Code</th>
+                            <td>{{ code|upper }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Prix</th>
+                            <td>{{ prix }} FCFA</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Description</th>
+                            <td>{{ description }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Date Expiration</th>
+                            <td>{{ dateExpiration }}</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Stock Disponible</th>
+                            <td><input type="number" class="form-text" name="value" placeholder="Nouveau Stock"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-between">
+                    <form action="/pharmacy/home/change" method="get">
+                        <button class="btn btn-dark">Annuler</button>
+                    </form>
+                    <input type="hidden" name="medicament" value="{{ nom }}">
+                    <input type="hidden" name="first" value="2">
+                    <button type="submit" class="btn btn-warning">Modifier Stock</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+{% elif not_status %}
+<div class="container mt-5">
+    <form action="/pharmacy/home/change" method="post"> 
+        {% csrf_token %}
+        <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <h1 class="text-center mb-4">Stock Medicament</h1>
+                    <div class="alert alert-danger" role="alert">
+                        Medicament Indisponible
+                    </div>
+                    <div class="input-group mb-2">
+                        <input type="text" required class="form-control" name="medicament" placeholder="Recherche Medicament...">
+                    </div>
+                    <button class="btn btn-success">Submit</button>
+                </div>
+        </div>
+    </form>
+</div>
+{% elif done %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h1 class="text-center mb-4">Details Medicament</h1>
+            <div class="alert alert-success" role="alert">Modifications Enregistrés</div>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <th scope="row">Nom</th>
+                        <td>{{ nom|upper }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Code</th>
+                        <td>{{ code|upper }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Prix</th>
+                        <td>{{ prix }} FCFA</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Description</th>
+                        <td>{{ description }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Date Expiration</th>
+                        <td>{{ dateExpiration }}</td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Stock Disponible</th>
+                        <td>{{ stockDisponible }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <div class="d-flex justify-content-between">
+                <form action="/pharmacy/home/change" method="get">
+                    <button class="btn btn-dark">Retour</button>
+                </form>
+                <form action="/pharmacy/home/change" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="medicament" value="{{ nom }}">
+                    <input type="hidden" name="first" value="3">
+                    <button class="btn btn-warning">Modifier Stock</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endif %}
+{% endblock %}
