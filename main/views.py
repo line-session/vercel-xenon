@@ -48,6 +48,7 @@ def logout_views(request):
     logout(request)
     return redirect('/pharmacy/login')
 
+@login_required(login_url='/pharmacy/login')
 def show(request):
     if(request.method == "POST"):
         element = request.POST.get('medicament').strip()
@@ -59,6 +60,7 @@ def show(request):
     else:
         return redirect('/pharmacy/home/show')
 
+@login_required(login_url='/pharmacy/login')
 def add(request):
     if request.method == "POST":
         vnom = request.POST.get('nom').strip()
@@ -87,6 +89,7 @@ def add(request):
     else:
         return render(request, 'applications/ajouter/add.html', {'new': True})
     
+@login_required(login_url='/pharmacy/login')
 def delete(request):
     if request.method == "POST":
         element = request.POST.get('medicament').strip()
@@ -104,6 +107,7 @@ def delete(request):
     else:
         return render(request, 'applications/supprimer/delete.html', {'new':True})
 
+@login_required(login_url='/pharmacy/login')
 def change(request):
     if request.method == "POST":
         element = request.POST.get('medicament').strip()
@@ -126,7 +130,8 @@ def change(request):
             return render(request, 'applications/modifier/change.html', {'status':True, 'nom':verify.nom,'code':verify.code,'prix':verify.prix, 'description':verify.description, 'dateExpiration':verify.dateExpiration, 'stockDisponible':verify.stockDisponible})
     else:
         return render(request, 'applications/modifier/change.html', {'new':True})
-    
+
+@login_required(login_url='/pharmacy/login')
 def sell(request):
     if request.method == "POST":
         element = request.POST.get('medicament').strip()
