@@ -26,6 +26,8 @@ SECRET_KEY = 'django-insecure-jz2f^!v^_o9c7!xj)9+bqh6y5)jakkzlz4l(y1z4+5^$sih_lp
 DEBUG = True
 
 ALLOWED_HOSTS = [
+        '127.0.0.1',
+        'https://vercel-xenon.onrender.com',
         '.versel.app'
 ]
 
