@@ -81,7 +81,6 @@ def add(request):
                 stockDisponible = vstock_disponible
             )
             if new_medicament:
-                new_medicament.save()
                 return render(request, 'applications/ajouter/add.html', {'ajout_success': True})
         elif verify:
             return render(request, 'applications/ajouter/add.html', {'exist': True})
